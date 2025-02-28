@@ -1,5 +1,18 @@
-console.log("1.Commit after remote push")
-console.log("1.Commit in develop remote and compare with master remote")
-console.log("commiting in dev")
-console.log("Running mera server")
-console.log("forgot to pull and made changes to master")
+const express=require('express')
+require('dotenv').config()
+
+const app=express()
+app.use(cors())
+app.use(express.json())
+
+
+const port= process.env.PORT || 5000
+
+app.get('/',(req,res)=>{
+    res.send("Welcome to Mera server")
+})
+
+app.listen(port,()=>{
+    console.log("Mera Server Running");
+})
+
