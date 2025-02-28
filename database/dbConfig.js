@@ -1,4 +1,6 @@
-const { Client } = require('pg');
+// dbConfig.js
+
+const { Client } = require('pg'); // Import pg Client
 
 // Use the DATABASE_URL environment variable, which should be set according to your environment.
 const connectionString = process.env.DATABASE_URL;
@@ -10,5 +12,5 @@ const client = new Client({
   },
 });
 
-
-module.exports ={client};
+// Export client to use in other parts of the app
+module.exports = client;

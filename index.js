@@ -1,21 +1,21 @@
-const express=require('express')
-const cors=require('cors')
-const client=require('./database/dbConfig.js')
-require('dotenv').config()
+const express = require('express');
+const cors = require('cors');
+const client = require('./database/dbConfig.js'); // Import the configured client
+require('dotenv').config();
 
-const app=express()
-app.use(cors())
-app.use(express.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
 
+const port = process.env.PORT || 5000;
 
-const port= process.env.PORT || 5000
+app.get('/', (req, res) => {
+  res.send("Welcome to Mera server");
+});
 
-app.get('/',(req,res)=>{
-    res.send("Welcome to Mera server")
-})
-
-app.listen(port,()=>{
-    client.connect()
+app.listen(port, () => {
+  // Connect to the database only when the server is starting
+  client.connect()
     .then(() => {
       console.log("Connected to the database");
       return client.query('SELECT NOW()');
@@ -27,9 +27,9 @@ app.listen(port,()=>{
       console.error('Error connecting to the database', err.stack);
     })
     .finally(() => {
-      client.end();
+      // Optionally, you can close the connection here or keep it open depending on your use case
+      // client.end(); // Uncomment if you want to disconnect immediately after the query
     });
-  
-    console.log("Mera Server Running");
-})
 
+  console.log("Mera Server Running");
+});
